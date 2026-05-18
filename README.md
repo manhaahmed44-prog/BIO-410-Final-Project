@@ -1,26 +1,23 @@
 # BIO-410-Final-Project
 ## Background
-The data consists of 6 samples from the organism Ebola Virus. This organism is a __________________ which ____________ [citation].
+The data consists of 6 samples from the organism Zaire Ebola Virus. This organism is a RNA virus, more specifically a filovirus, which causes a multitude of clinial features such as fever, diarrhea, vomiting, and high fatility rate. It also considered a hemorrhagic fever that affects both humans and primates. Zaire Ebola Virus's short name is EBOV, and some of its known strains originate from Democratic Republic of Congo and Gabon. EBOV is consred a contact diease as it primarily spreads from blood or bodily fluids. Scientists have found that the Zaire Ebola Virus is considered a enzootic and epizootic filovirus in Africa. The Zaire Ebola Virus from the Democratic Republic of Congo and Gabon is in a sister realtionship with the Zaire Ebola Virus strain that emerged in Guinea, except it has eevolved from its original strain. Citations: Baize, S., Pannetier, D., Oestereich, L., Rieger, T., Koivogui, L., Magassouba, N., Soropogui, B., Sow, M. S., Keïta, S., De Clerck, H., Tiffany, A., Dominguez, G., Loua, M., Traoré, A., Kolié, M., Malano, E. R., Heleze, E., Bocquin, A., Mély, S., & Raoul, H. (2014). Emergence of Zaire Ebola virus disease in Guinea. The New England Journal of Medicine, 371(15), 1418–1425. https://doi.org/10.1056/NEJMoa1404505. Breman, J. G., Heymann, D. L., Lloyd, G., McCormick, J. B., Miatudila, M., Murphy, F. A., Muyembé-Tamfun, J.-J., Piot, P., Ruppol, J.-F., Sureau, P., van der Groen, G., & Johnson, K. M. (2016). Discovery and Description of Ebola Zaire Virus in 1976 and Relevance to the West African Epidemic During 2013–2016. Journal of Infectious Diseases, 214(suppl 3), S93–S101. https://doi.org/10.1093/infdis/jiw207. 
 
 ## Purpose
-The purpose of this project was to create a phylogenetic tree from 6 samples of the Ebola Virus in order to determine the evolutionary relationships between the samples.
+The purpose of this project was to create a phylogenetic tree from 6 samples of the Zaire Ebola Virus in order to determine the evolutionary relationships between the samples.
 
 
 ## Methods
-Include information about 
--  Sequencing reads (NGS next-generation sequencing)
--  Assembly using MEGAHIT (provide a link to MEGAHIT website)
--  Alignment using R package DECIPHER
--  Tree using ML method in R package DECIPHER
--  For each source of data, state which files/folders in the repository correspond to those data (so for example, the assmebled reads are in __________ [some folder] and the raw sequencing reads are in ________ [some folder (this is the one named with your name)]
+### Sequencing Reads (Next-Generation Sequencing)
+We started off with obtaining a set of reads from an NGS sequencing experiment. These were obtained from 6 samples of an unknown virus, which we later found is the Zaire Ebola Virus. These 6 samples had FASTQ files as well as two sequencning read files. This gave us a baseline on assmebling our 6 samples into contigs.
+### Assembly Using MEGAHIT
+In order for all 6 samples to become contigs, we have to assemble them using MEGAHIT. We would use Terminal to run the MEGAHIT command and upload the set of reads from the 6 samples. Then, we would enter the code, megahit -1 sim_t1_1.fq -2 sim_t1_2.fq -o t1_ou, and this would create an assembly output in the folder “megahit_out”. Within this folder, we obtained the file “final.contigs.fa”, and this prepared us for our next step of reading these files into R Studio.
+### Alignment Using R Package DECIPHER
+First, it is important to install the Biostrings and DECIPHER packages into R Studio. Then after loading the Biostrings and DECIPHER library, we would read in the MEGAHIT assembly results for each sample using this code: allcontigs <- c()for(i in 1:6){contigs <-readDNAStringSet(paste0('~/[INSERT CORRECT PATH]/t', i, '_out/final.contigs.fa'))allcontigs <- c(allcontigs, contigs)}. In the INSERT CORRECT PATH, we would just simply put the name of where our files our downloaded. Next, in order to align the biggest parts of the genome, we would use the "toalign" code to obtain the 6 assembled genomes.
+### Phylogenetic Tree Using The ML Method In R Package DECIPHER
+To make the alignment for the phylogentic tree, we would use the function of "AlignSeqs" on "toalign". And, in order to view the alignment we made, we would us the function of "BrowseSeqs". Now to make the phylogenetic tree itself, we would use the function of "Treeline" with the method of "ML" and "showPlot=TRUE", in order to obtain the phylogenetic tree.
+
 
 ## Results
-Here is the phylogenetic tree:
-(Insert the image, see the markdown cheat sheet for how to do that)
+<img width="648" height="466" alt="Screen Shot 2026-05-08 at 2 12 03 PM" src="https://github.com/user-attachments/assets/d28d7e08-16ed-4b16-89c5-4153d5fa4058" />
 
-![Example image of a phylogenetic tree](FiveIngroupSpecies.png)
-
-Explain
-- which samples are closely related to each other
-- how many individuals did these 6 samples come from (probably) based on the phylogenetic tree
-- 
+This is the phylogenetic tree of the Zaire Ebola Viris organism. Based on this phylogenetic tree, we can see that sample 3 and 4 are most closely related to each other, while sample 6 is the third closest branch to them. Looking on the other side of the phylogenetic tree, we can see that sample 1 and 5 are closely related to each other, while sample 2 is the third closest branch to them. It is clear that the phylogenetic tree show two main branches thaat each have their own clusters. The first branch contains the cluster samples of 2, 1, and 5. The second branch contains the custer samples of 3, 4, and 6. It may be possible that the samples in the first branch and the samples in the second branch are the least related to each other, as they are at a significant distance apart.
